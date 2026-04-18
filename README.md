@@ -1,4 +1,4 @@
-# 🧠 Document Intelligence Platform
+<img width="1911" height="883" alt="Screenshot 2026-04-18 225925" src="https://github.com/user-attachments/assets/ae9eac18-5ae9-45b3-ab5f-fe0a98529de9" /><img width="1911" height="883" alt="Screenshot 2026-04-18 225925" src="https://github.com/user-attachments/assets/b5950067-71c1-41be-9715-7258d6c99523" /># 🧠 Document Intelligence Platform
 
 > A full-stack AI platform that automates web scraping, creates vector embeddings, and provides an intelligent RAG-powered chatbot for semantic document search.
 
@@ -43,3 +43,13 @@ npm run dev
 *(Insert Screenshot 1: Main Dashboard here)*
 *(Insert Screenshot 2: RAG AI Chat Interface here)*
 *(Insert Screenshot 3: Data Scraper Pipeline here)*
+
+
+
+<img width="1911" height="883" alt="Screenshot 2026-04-18 225925" src="https://github.com/user-attachments/assets/ce1cb83d-a3f2-4f4e-899e-fbc8865942a2" />
+<img width="1913" height="899" alt="Screenshot 2026-04-18 225943" src="https://github.com/user-attachments/assets/6dd058e2-c715-45e5-ba79-47ff13e904d3" />
+
+
+
+
+
