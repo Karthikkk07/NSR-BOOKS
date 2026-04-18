@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Home, Library as LibraryIcon, MessageSquare, Database, Settings, BookOpen, Search, Send, Plus, Loader2, CheckCircle2, ShieldAlert, LogIn, Mail } from 'lucide-react';
 import React, { useState, useEffect, useRef } from 'react';
 
-const API_BASE = 'http://localhost:8000/api';
+const API_BASE = window.location.origin + '/api';
 
 // --- Dashboard Component ---
 function Dashboard() {
