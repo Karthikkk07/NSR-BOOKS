@@ -30,7 +30,8 @@ llm_client = OpenAI(base_url=OPENAI_BASE_URL, api_key=OPENAI_API_KEY)
 
 if HAS_GEMINI and AI_PROVIDER == "gemini":
     genai.configure(api_key=GEMINI_API_KEY)
-    gemini_model = genai.GenerativeModel('gemini-2.5-flash')
+    # Using the correct model name (gemini-1.5-flash)
+    gemini_model = genai.GenerativeModel('gemini-1.5-flash')
 else:
     gemini_model = None
 
