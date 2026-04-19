@@ -1,27 +1,24 @@
 """
-WSGI config for core project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
+WSGI config for core project (Vercel serverless compatible).
 """
 
 import os
+import sys
 
-from django.core.wsgi import get_wsgi_application
+# Ensure 'backend/' is on the Python path so Django can find 'core.settings', 'api', etc.
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
+from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
-app = application
+app = application  # Vercel looks for 'app'
 
-# Run migrations automatically on startup (Serverless friendly)
-from django.core.management import call_command
+# Auto-run migrations on cold start (creates tables if they don't exist)
 try:
-    print("Running migrations...")
-    call_command('migrate', interactive=False)
-    print("Migrations complete.")
+    from django.core.management import call_command
+    call_command('migrate', '--run-syncdb', interactive=False, verbosity=0)
 except Exception as e:
-    print(f"Migration error: {e}")
-
+    print(f"[wsgi] Migration warning: {e}")
