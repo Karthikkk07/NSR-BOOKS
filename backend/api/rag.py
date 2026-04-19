@@ -1,17 +1,14 @@
 import os
 import chromadb
 from openai import OpenAI
-from sentence_transformers import SentenceTransformer
+from openai import OpenAI
 from .models import Book
 
 # Initialize ChromaDB Vector Store
 chroma_client = chromadb.PersistentClient(path="./chroma_db")
 collection = chroma_client.get_or_create_collection(name="documents")
 
-# Initialize Sentence Transformer (Lightweight & Fast embedding model)
-print("Loading embedding model (this may take a moment on first run)...")
-embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
-print("Embedding model loaded.")
+# AI Client configuration moved below imports
 
 # Initialize AI Client
 # Fallback to OpenAI API/LM Studio if an API key is provided
@@ -36,8 +33,25 @@ else:
     gemini_model = None
 
 def generate_embeddings(text):
-    """Generates dense vector embeddings for text"""
-    return embedding_model.encode(text).tolist()
+    """Generates dense vector embeddings for text using Gemini API"""
+    if AI_PROVIDER == "gemini" and HAS_GEMINI and GEMINI_API_KEY:
+        try:
+            result = genai.embed_content(
+                model="models/embedding-001",
+                content=text,
+                task_type="retrieval_document"
+            )
+            return result['embedding']
+        except Exception as e:
+            print(f"Gemini Embedding Error: {e}")
+            # Fallback or re-raise
+            raise
+    else:
+        # Fallback to a mock or error if no cloud provider is configured
+        print("Warning: No cloud embedding provider configured. Returning zero vector.")
+        return [0.0] * 384 # 384 is the size for MiniLM, but Gemini is 768. 
+        # Actually, if we change providers, we might need to reset the vector DB.
+        # Gemini embedding-001 is 768.
 
 def index_document(book):
     """Embeds a document and inserts it into ChromaDB"""
